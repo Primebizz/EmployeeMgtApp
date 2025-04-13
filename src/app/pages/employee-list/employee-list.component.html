@@ -1,0 +1,44 @@
+
+<div class="container flex justify-center align-middle mt-5 m-auto flex-col gap-4">
+    <div class="text-center">
+        Employee form
+    </div>
+    <table class="table-fixed border-separate border border-gray-600">
+        <thead>
+            <tr>
+                <th class="border border-gray-600">Sr No</th>
+                <th class="border border-gray-600">FullName</th>
+                <th class="border border-gray-600">Gender</th>
+                <th class="border border-gray-600">Date Of Joining</th>
+                <th class="border border-gray-600">Department Name</th>
+                <th class="border border-gray-600">Salary</th>
+                <th class="border border-gray-600">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (item of employeeList; track $index) {
+                <tr>
+                <td class="border border-gray-600"> {{$index+1}} </td>
+                <td class="border border-gray-600"> {{item.fullName}} </td>
+                <td class="border border-gray-600"> {{item.gender}} </td>
+                <td class="border border-gray-600"> {{item.dateOfJoining | date: 'dd-MMM-yy' }} </td>
+                <td class="border border-gray-600"> {{item.departmentName}} <br>
+                                                        {{item.designationName}}</td>
+                <td class="border border-gray-600"> {{item.salary}} </td>
+                <td class="border border-gray-600"> 
+                    <div class="flex space-x-2">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg border border-red-500" (click)="deleteEmployee(item.employeeId)">
+                          Delete
+                        </button>
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg border border-green-500" (click)="editEmployee(item.employeeId)">
+                          Edit
+                        </button>
+                      </div>
+                     </td>
+            </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>

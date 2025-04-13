@@ -1,0 +1,158 @@
+
+<div class="container flex align-middle justify-center m-auto py-2 px-4 rounded-md mt-2" id="form"></div>
+
+<div class="container flex align-middle justify-center m-auto mt-14">
+
+     <form action="" [formGroup]="employeeForm" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-2xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        <div>
+          <label for="fullname" class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
+          <input
+            type="text"
+            name="fullname"
+            formControlName="fullname"
+            placeholder="Fullname"
+            [(ngModel)]="employeeObj.fullName"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+  
+        <div>
+          <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+          <input
+            type="text"
+            name="email"
+            formControlName="email"
+            placeholder="Email"
+            [(ngModel)]="employeeObj.email"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+  
+        <div>
+          <label for="Phone" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+          <input
+            type="string"
+            formControlName="phone"
+            name="phone"
+            placeholder="Phone"
+            [(ngModel)]="employeeObj.phone"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+  
+        <div>
+          <label for="gender" class="block text-gray-700 text-sm font-bold mb-2">Gender</label>
+          <div class="flex items-center space-x-4">
+
+            <input type="radio" formControlName="gender" value="male" name="gender" [(ngModel)]="employeeObj.gender" id="male" class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+            <label for="male" class="text-gray-700 text-sm">Male</label>
+
+            <input type="radio" formControlName="gender" value="female" name="gender" [(ngModel)]="employeeObj.gender" id="female" class="form-radio h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+            <label for="female" class="text-gray-700 text-sm">Female</label>
+          </div>
+        </div>
+  
+        <div>
+          <label for="dateOfJoining" class="block text-gray-700 text-sm font-bold mb-2">Date of Joining</label>
+          <input
+            type="date"
+            formControlName="dateOfJoining"
+            name="dateOfJoining"
+            id="dateOfJoining"
+            [(ngModel)]="employeeObj.dateOfJoining"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+  
+        <div>
+          <label for="department" class="block text-gray-700 text-sm font-bold mb-2">Department</label>
+          <select
+            (change)="getDesignation()"
+            name="department"
+            formControlName="department"
+            id="department"
+            [(ngModel)]="employeeObj.departmentId"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+          <option value="department" disabled>Select Department</option>
+
+          @for (dept of deptList$ | async; track $index) {
+            <option [value]="dept.departmentId"> {{dept.departmentName}} </option>
+          }
+          </select>
+        </div>
+  
+        <div>
+          <label for="designation" class="block text-gray-700 text-sm font-bold mb-2">Designation</label>
+          <select
+            name="designation"
+            formControlName="designation"
+            id="designation"
+            [(ngModel)]="employeeObj.designationId"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="designation" disabled>Select Designation</option>
+
+            @for (item of designationList; track $index) {
+              <option [value]="item.designationId"> {{item.designationName}} </option>
+            }
+          </select>
+        </div>
+  
+        <div>
+          <label for="employeeType" class="block text-gray-700 text-sm font-bold mb-2">Employee Type</label>
+          <select
+            name="employeeType"
+            formControlName="employeeType"
+            id="employeeType"
+            [(ngModel)]="employeeObj.employeeType"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="employeeType" disabled>Select Employee Type</option>
+            <option value="contract">Contract</option>
+            <option value="permanent">Permanent</option>
+          </select>
+        </div>
+  
+        <div>
+          <label for="salary" class="block text-gray-700 text-sm font-bold mb-2">Salary</label>
+          <input
+            type="number"
+            formControlName="salary"
+            name="salary"
+            [(ngModel)]="employeeObj.salary"
+            placeholder="Salary"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+         @if (employeeObj.employeeId == 0) {
+          <button
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          (click)="onSaveEmployee()"
+        >  Save
+          </button>
+         } @else {
+          <button
+          class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          (click)="onUpdateEmployee()"
+        >  Update
+      </button>
+         }
+          
+        
+          <button
+            class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline ml-2"
+            (click)="onResetEmployee()"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </form>
+
+   
+  </div>
+

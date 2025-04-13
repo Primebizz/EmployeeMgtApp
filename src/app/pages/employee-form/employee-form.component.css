@@ -1,0 +1,10 @@
+
+
+.success{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    font-size: large;
+    padding: 3rem;
+    margin: 1rem;
+    background-color: rgb(64, 55, 114);
+}
